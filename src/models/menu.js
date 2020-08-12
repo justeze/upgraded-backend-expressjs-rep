@@ -40,8 +40,7 @@ const menuModel = {
             })
         })
     },
-    deleteMenu: (body) => {
-        const { id } = body
+    deleteMenu: (id) => {
         return new Promise((resolve, reject) => {
             const queryString = `DELETE FROM produk WHERE id=${id}`
             db.query(queryString, (err, data) => {
@@ -56,7 +55,7 @@ const menuModel = {
     getMenuByName: (nama_produk) => {
         const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id WHERE produk.nama_produk LIKE "%${nama_produk}%"`
         return new Promise((resolve, reject) => {
-            db.query(queryString, [nama_produk], (err, data) => {
+            db.query(queryString, (err, data) => {
                 if (!err) {
                     resolve(data);
                 } else {
@@ -65,45 +64,11 @@ const menuModel = {
             })
         })
     },
-    sortMenuByNameASC: () => {
-        const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.nama_produk ASC`
+    sort: (query) => {
+        const sortBy = query.by
+        const sortOrder = query.order
         return new Promise((resolve, reject) => {
-            db.query(queryString, (err, data) => {
-                if (!err) {
-                    resolve(data)
-                } else {
-                    reject(err)
-                }
-            })
-        })
-    },
-    sortMenuByKategoriASC: () => {
-        const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.id_kategori ASC`
-        return new Promise((resolve, reject) => {
-            db.query(queryString, (err, data) => {
-                if (!err) {
-                    resolve(data)
-                } else {
-                    reject(err)
-                }
-            })
-        })
-    },
-    sortMenuByPriceDESC: () => {
-        const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.harga_produk DESC`
-        return new Promise((resolve, reject) => {
-            db.query(queryString, (err, data) => {
-                if (!err) {
-                    resolve(data)
-                } else {
-                    reject(err)
-                }
-            })
-        })
-    },
-    sortLatestMenuDESC: () => {
-        const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.added_at DESC`
-        return new Promise((resolve, reject) => {
+            const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.${sortBy} ${sortOrder}`
             db.query(queryString, (err, data) => {
                 if (!err) {
                     resolve(data)

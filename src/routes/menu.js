@@ -9,11 +9,8 @@ const menuRouter = express.Router()
 menuRouter.get('/',productMiddleware, menuController.getAllMenu)
 menuRouter.post('/',productMiddleware, menuController.postMenu)
 menuRouter.patch('/',productMiddleware, menuController.patchMenu)
-menuRouter.delete('/',productMiddleware, menuController.deleteMenu)
+menuRouter.delete('/:id',productMiddleware, menuController.deleteMenu)
 menuRouter.get('/search',productMiddleware, menuController.getMenuByName)
-menuRouter.get('/sortMenuByNameASC',productMiddleware, menuController.sortMenuByNameASC)
-menuRouter.get('/sortMenuByKategoriASC',productMiddleware, menuController.sortMenuByKategoriASC)
-menuRouter.get('/sortMenuByPriceDESC',productMiddleware, menuController.sortMenuByPriceDESC)
-menuRouter.get('/sortLatestMenuASC',productMiddleware, menuController.sortLatestMenuDESC)
+menuRouter.get('/sort',productMiddleware, menuController.sort)
 
 module.exports = menuRouter

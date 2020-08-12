@@ -6,31 +6,43 @@ const menuController = {
         menuModel.getAllMenu()
             .then((data) => {
                 responseForm.success(res, data);
-            }).catch((err)=>{
+            }).catch((err) => {
                 responseForm.error(res, err);
             })
     },
     postMenu: (req, res) => {
         menuModel.postMenu(req.body)
             .then((data) => {
-                responseForm.success(res, data);
-            }).catch((err)=>{
+                const responseObj = {
+                    id: data.insertId,
+                    ...req.body
+                }
+                responseForm.success(res, responseObj, 200);
+            }).catch((err) => {
                 responseForm.error(res, err);
             })
     },
     patchMenu: (req, res) => {
         menuModel.patchMenu(req.body)
             .then((data) => {
-                responseForm.success(res, data);
-            }).catch((err)=>{
+                const responseObj = {
+                    id: data.insertId,
+                    ...req.body
+                }
+                responseForm.success(res, responseObj, data);
+            }).catch((err) => {
                 responseForm.error(res, err);
             })
     },
     deleteMenu: (req, res) => {
-        menuModel.deleteMenu(req.body)
+        menuModel.deleteMenu(req.params.id)
             .then((data) => {
-                responseForm.success(res, data);
-            }).catch((err)=>{
+                const responseObj = {
+                    id: data.insertId,
+                    ...req.body,
+                }
+                responseForm.success(res, responseObj, data);
+            }).catch((err) => {
                 responseForm.error(res, err);
             })
     },
@@ -38,42 +50,17 @@ const menuController = {
         menuModel.getMenuByName(req.query.nama_produk)
             .then((data) => {
                 responseForm.success(res, data);
-            }).catch((err)=>{
+            }).catch((err) => {
                 responseForm.error(res, err);
             })
     },
-    sortMenuByNameASC: (_, res) => {
-        menuModel.sortMenuByNameASC()
-        .then((data) => {
-            responseForm.success(res, data);
-        }).catch((err)=>{
-            responseForm.error(res, err);
-        })
+    sort: (req, res) => {
+        menuModel.sort(req.query)
+            .then((data) => {
+                responseForm.success(res, data);
+            }).catch((err) => {
+                responseForm.error(res, err);
+            })
     },
-    sortMenuByKategoriASC: (_,res) => {
-        menuModel.sortMenuByKategoriASC()
-        .then((data)=>{
-            responseForm.success(res, data);
-        }).catch((err)=>{
-            responseForm.error(res, err);
-        })
-    },
-    sortMenuByPriceDESC: (_,res) => {
-        menuModel.sortMenuByPriceDESC()
-        .then((data)=>{
-            responseForm.success(res, data);
-        }).catch((err)=>{
-            responseForm.error(res, err);
-        })
-    },
-    sortLatestMenuDESC: (_,res) => {
-        menuModel.sortLatestMenuDESC()
-        .then((data)=>{
-            responseForm.success(res, data);
-        }).catch((err)=>{
-            responseForm.error(res, err);
-        }
-        )
-    }
 }
 module.exports = menuController;
