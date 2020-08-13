@@ -38,8 +38,7 @@ const menuController = {
         menuModel.deleteMenu(req.params.id)
             .then((data) => {
                 const responseObj = {
-                    id: data.insertId,
-                    ...req.body,
+                    msg: "delete success"
                 }
                 responseForm.success(res, responseObj, data);
             }).catch((err) => {

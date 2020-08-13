@@ -1,12 +1,12 @@
-const jwt = require('jsonwebtoken')
+
 
 const formResponse = require('../helpers/form/responseForm')
-const authKambing = require('../models/auth')
+const authModel = require('../models/auth')
 
 
 const authController = {
     register: (req, res) => {
-        authKambing.kambing(req.body)
+        authModel.postNewUser(req.body)
             .then((data) => {
                 formResponse.success(res, data)
             })
@@ -15,12 +15,19 @@ const authController = {
             })
     },
     login: (req, res) => {
-        const token = jwt.sign(req.body, process.env.SECRET_KEY, {
-            expiresIn: "1h",
+        authModel.loginUser(req.body)
+        .then((data) => {
+            formResponse.success(res, data)
         })
-        res.json({
-            token
+        .catch((err) => {
+            formResponse.error(res, err)
         })
+        // const token = jwt.sign(req.body, process.env.SECRET_KEY, {
+        //     expiresIn: "1h",
+        // })
+        // res.json({
+        //     token
+        // })
     }
 }
 
