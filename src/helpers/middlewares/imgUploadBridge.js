@@ -14,8 +14,8 @@ const limits = {
   fileSize: 1 * 1000 * 1000,
 }
 const fileFilter = (req, file, cb) => {
-  const fileTypes = /jpg|jpeg|gif|png/;
-  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const fileTypes = /jpg|jpeg|gif|png/
+  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase())
   if (extName) {
     cb(null, true)
   } else {
@@ -37,6 +37,7 @@ const uploadBridge = {
           msg: err,
         })
       } else {
+        console.log(req.body)
         req.body.gambar_produk = `http://localhost:2300/images/${req.file.filename}`
         next()
       }

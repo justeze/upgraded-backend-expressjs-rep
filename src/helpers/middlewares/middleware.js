@@ -10,7 +10,7 @@ const productMiddleware = (req, res, next) => {
     const isBodyEmpty = _.isEmpty(req.body)
     
     
-    if (requestMethod === "GET" && (requestPath === "/menu" ||   requestPath === "/sort" || requestPath === "/search")) {
+    if (requestMethod === "GET" && (requestPath === "/menu" ||   requestPath === "/sort" || requestPath === "/search" || requestPath === "/pagination")) {
         if (requestPath === "/search" && isQueryEmpty) {
             const errorMsg = "request cannot be blank"
             responseForm.error(res, errorMsg)
@@ -18,14 +18,14 @@ const productMiddleware = (req, res, next) => {
             next()
         }
     } 
-    // else if (requestMethod === "GET" && (requestPath === "/sort") ) {
-    //     if (requestPath === "/sort" && isQueryEmpty) {
-    //         const errorMsg = "request cannot be blank";
-    //         responseForm.error(res, errorMsg);
-    //     } else {
-    //         next();
-    //     }
-    // }
+    else if (requestMethod === "GET" && (requestPath === "/sort") ) {
+        if (isQueryEmpty) {
+            const errorMsg = "request cannot be blank";
+            responseForm.error(res, errorMsg);
+        } else {
+            next();
+        }
+    }
 
     else if (requestMethod === "DELETE" && requestPath === "/:id") {
         if (isParamsEmpty) {
