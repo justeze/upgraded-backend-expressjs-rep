@@ -36,14 +36,12 @@ const productMiddleware = (req, res, next) => {
         }
     } 
     else if (requestMethod === "POST" && (requestPath === "/addmenu")) {
-        console.log(req.body)
-        next()
-        // if (isBodyEmpty) { 
-        //     const errorMsg = "request kiw cannot be blank!"
-        //     responseForm.error(res, errorMsg)
-        // } else {
-        //     next()
-        // }
+        if (isBodyEmpty) { 
+            const errorMsg = "request kiw cannot be blank!"
+            responseForm.error(res, errorMsg)
+        } else {
+            next()
+        }
     } 
     else if (requestMethod === "PATCH" && requestPath === "/updatemenu") {
         if (isBodyEmpty) {
