@@ -14,11 +14,21 @@ const menuModel = {
         })
     },
     postMenu: (body) => {
-        // const { nama_produk, harga_produk, id_kategori } = body
-        // const queryString = `INSERT INTO produk SET nama_produk="${nama_produk}", harga_produk="${harga_produk}", id_kategori=${id_kategori}`
-        const queryString = "INSERT INTO produk SET ?"
+        // const { nama_produk, harga_produk, id_kategori, gambar_produk } = body
+        // const queryString = "INSERT INTO produk SET ?"
+        // return new Promise((resolve, reject) => {
+        //     db.query(queryString, [body], (err, data) => {
+        //         if (!err) {
+        //             resolve(data);
+        //         } else {
+        //             reject(err)
+        //         }
+        //     })
+        // })
+        const { nama_produk, harga_produk, id_kategori, gambar_produk } = body
+        const queryString = "INSERT INTO produk SET nama_produk=?, harga_produk=?, id_kategori=?, gambar_produk=?"
         return new Promise((resolve, reject) => {
-            db.query(queryString, [body], (err, data) => {
+            db.query(queryString, [nama_produk, harga_produk, id_kategori, gambar_produk], (err, data) => {
                 if (!err) {
                     resolve(data);
                 } else {
@@ -31,7 +41,7 @@ const menuModel = {
         const { id } = body
         return new Promise((resolve, reject) => {
             const queryString = `UPDATE produk SET ? WHERE produk.id=${id}`
-            db.query(queryString, [body], (err,  data) => {
+            db.query(queryString, [body], (err, data) => {
                 if (!err) {
                     resolve(data)
                 } else {
@@ -74,6 +84,20 @@ const menuModel = {
                     resolve(data)
                 } else {
                     reject(err)
+                }
+            })
+        })
+    },
+    getPaginatedMenu: (page, limit) => {
+        return new Promise((resolve, reject) => {
+            const offset = (page - 1) * limit
+            const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.id ASC LIMIT ${Number(limit)} OFFSET ${Number(offset)}`
+            db.query(queryString, (err, data) => {
+
+                if (!err) {
+                    resolve(data);
+                } else {
+                    reject(err);
                 }
             })
         })

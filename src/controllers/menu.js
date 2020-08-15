@@ -17,7 +17,7 @@ const menuController = {
                     id: data.insertId,
                     ...req.body
                 }
-                responseForm.success(res, responseObj, 200);
+                responseForm.success(res, responseObj, data);
             }).catch((err) => {
                 responseForm.error(res, err);
             })
@@ -61,5 +61,16 @@ const menuController = {
                 responseForm.error(res, err);
             })
     },
+    getPaginatedMenu: (req, res) => {
+        const { page, limit } = req.query
+        menuModel
+          .getPaginatedMenu(page, limit)
+          .then((data) => {
+            responseForm.pagination(req, res, data);
+          })
+          .catch((err) => {
+            responseForm.error(res, err);
+          });
+      },
 }
 module.exports = menuController;
