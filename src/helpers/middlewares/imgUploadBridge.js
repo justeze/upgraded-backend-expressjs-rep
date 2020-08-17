@@ -37,12 +37,12 @@ const uploadBridge = {
           msg: err,
         })
       } else {
-        console.log(req.body)
+        // console.log(req.body)
         req.body.gambar_produk = `http://localhost:2300/images/${req.file.filename}`
         next()
       }
-    });
-  },
-};
+    })
+  }
+}
 
 module.exports = uploadBridge;

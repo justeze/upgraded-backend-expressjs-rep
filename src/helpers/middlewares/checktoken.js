@@ -6,19 +6,19 @@ const checkToken = {
         const bearerToken = req.header("x-access-token")
         if (!bearerToken) {
             res.json({
-                msg: "Login dulu bang"
+                msg: "Login first !"
             })
         }
         try {
             const token = bearerToken.split(" ")[1]
             const decoded = jwt.verify(token, process.env.SECRET_KEY)
-            // console.log(decoded)
+            console.log(decoded)
             if (decoded.level_id === 1) {
                 req.decodedToken = decoded
                 next()
             } else {
                 res.json({
-                    msg: "salah login bang"
+                    msg: "Wrong login section"
                 })
             }
         } catch (e) {
@@ -29,7 +29,7 @@ const checkToken = {
         const bearerToken = req.header("x-access-token")
         if (!bearerToken) {
             res.json({
-                msg: "Login dulu bang"
+                msg: "Login first !"
             })
         }
         try {

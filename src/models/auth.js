@@ -38,8 +38,8 @@ const authModel = {
                             const secondQS = `INSERT INTO users SET ?`
                             db.query(queryString, newBody.username, (err, data) => {
                                 if (data.length) {
-                                    reject(err)
-                                }
+                                    reject({ msg: "username udah ada"})
+                                } 
                                 if (!data.length) {
                                     db.query(secondQS, newBody, (err, result) => {
                                         if (!err) {
@@ -61,9 +61,9 @@ const authModel = {
             const queryString = "SELECT username, password, level_id FROM users WHERE username=?"
             db.query(queryString, body.username, (err, data) => {
                 if (!err) {
-                    // console.log(body.username)
+                    console.log(data)
                     if (data.length) {
-
+                        
                         bcrypt.compare(body.password, data[0].password, (error, result) => {
                             if (!result) {
                                 reject({ msg: "wrong password" })

@@ -93,7 +93,6 @@ const menuModel = {
             const offset = (page - 1) * limit
             const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.id ASC LIMIT ${Number(limit)} OFFSET ${Number(offset)}`
             db.query(queryString, (err, data) => {
-
                 if (!err) {
                     resolve(data);
                 } else {

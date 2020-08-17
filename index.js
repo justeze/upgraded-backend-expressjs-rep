@@ -14,6 +14,7 @@ app.listen(process.env.PORT, () => {
 // app.get("/", (_, res) => {
 //   res.send("hello")
 // })
+app.use(express.static("public"))
 app.use(bodyParser.json()); //json
 app.use(bodyParser.urlencoded({ extended: false })); //x-www-form-urlencoded
 app.use(logger("dev")); // morgan
