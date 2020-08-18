@@ -7,7 +7,7 @@ const authController = {
         authModel.postNewUser(req.body)
             .then((data) => {
                 const responseObj = {
-                    id: data.insertId
+                    msg: "register success"
                 }
                 responseForm.success(res, responseObj, data);
             })
