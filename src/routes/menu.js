@@ -14,6 +14,6 @@ menuRouter.patch('/updatemenu', checkToken.checkTokenAdmin, productMiddleware, m
 menuRouter.delete('/:id', checkToken.checkTokenAdmin, productMiddleware, menuController.deleteMenu)
 menuRouter.get('/search', checkToken.checkTokenKasir, productMiddleware, menuController.getMenuByName)
 menuRouter.get('/sort', checkToken.checkTokenKasir, productMiddleware, menuController.sort)
-menuRouter.get('/pagination', checkToken.checkTokenKasir, productMiddleware, menuController.getPaginatedMenu)
+menuRouter.get('/pagination', productMiddleware, menuController.getPaginatedMenu)
 
 module.exports = menuRouter
