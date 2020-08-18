@@ -1,33 +1,28 @@
-
-
-const formResponse = require('../helpers/form/responseForm')
 const authModel = require('../models/auth')
+const responseForm = require('../helpers/form/responseForm')
 
 
 const authController = {
     register: (req, res) => {
         authModel.postNewUser(req.body)
             .then((data) => {
-                formResponse.success(res, data)
+                const responseObj = {
+                    id: data.insertId
+                }
+                responseForm.success(res, responseObj, data);
             })
             .catch((err) => {
-                formResponse.error(res, err)
+                responseForm.error(res, err)
             })
     },
     login: (req, res) => {
         authModel.loginUser(req.body)
-        .then((data) => {
-            formResponse.success(res, data)
-        })
-        .catch((err) => {
-            formResponse.error(res, err)
-        })
-        // const token = jwt.sign(req.body, process.env.SECRET_KEY, {
-        //     expiresIn: "1h",
-        // })
-        // res.json({
-        //     token
-        // })
+            .then((data) => {
+                responseForm.success(res, data)
+            })
+            .catch((err) => {
+                responseForm.error(res, err)
+            })
     }
 }
 

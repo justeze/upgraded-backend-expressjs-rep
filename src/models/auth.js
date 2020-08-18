@@ -4,28 +4,6 @@ const jwt = require('jsonwebtoken')
 
 
 const authModel = {
-    // postNewUser: (body) => {
-    //     return new Promise((resolve, reject) => {
-    //         const queryString = `SELECT users.username FROM users WHERE username=?`
-    //         const secondQS = `INSERT INTO users SET ?`
-    //         db.query(queryString, body.username, (err, data) => {
-    //             if (data.length) {
-    //                 reject(err)
-    //             }
-    //             if (!data.length) {
-    //                 db.query(secondQS, body, (error, result) => {
-    //                     if (!error) {
-    //                         resolve(result)
-    //                     } else {
-    //                         reject(error)
-    //                     }
-    //                 })
-    //             }
-    //         })
-
-    //     })
-    // },
-
     postNewUser: (body) => {
         return new Promise((resolve, reject) => {
             bcrypt.genSalt(10, (err, salt) => {
@@ -61,7 +39,7 @@ const authModel = {
             const queryString = "SELECT username, password, level_id FROM users WHERE username=?"
             db.query(queryString, body.username, (err, data) => {
                 if (!err) {
-                    console.log(data)
+                    // console.log(data)
                     if (data.length) {
                         
                         bcrypt.compare(body.password, data[0].password, (error, result) => {
@@ -70,6 +48,7 @@ const authModel = {
                             } else if (result === true) {
                                 const { username } = body;
                                 const { level_id } = data[0];
+                                // console.log(body)
                                 const payload = {
                                     username,
                                     level_id,
@@ -81,6 +60,9 @@ const authModel = {
                                 reject(error)
                             }
                         })
+                    } else {
+                        const msg = "username salah"
+                        reject({msg, err})
                     }
                 } else {
                     reject(err)

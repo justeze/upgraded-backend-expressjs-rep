@@ -14,17 +14,6 @@ const menuModel = {
         })
     },
     postMenu: (body) => {
-        // const { nama_produk, harga_produk, id_kategori, gambar_produk } = body
-        // const queryString = "INSERT INTO produk SET ?"
-        // return new Promise((resolve, reject) => {
-        //     db.query(queryString, [body], (err, data) => {
-        //         if (!err) {
-        //             resolve(data);
-        //         } else {
-        //             reject(err)
-        //         }
-        //     })
-        // })
         const { nama_produk, harga_produk, id_kategori, gambar_produk } = body
         const queryString = "INSERT INTO produk SET nama_produk=?, harga_produk=?, id_kategori=?, gambar_produk=?"
         return new Promise((resolve, reject) => {

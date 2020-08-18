@@ -18,7 +18,7 @@ const checkToken = {
                 next()
             } else {
                 res.json({
-                    msg: "Wrong login section"
+                    msg: "Wrong level token"
                 })
             }
         } catch (e) {
