@@ -45,14 +45,6 @@ const menuController = {
                 responseForm.error(res, err);
             })
     },
-    getMenuByName: (req, res) => {
-        menuModel.getMenuByName(req.query.nama_produk)
-            .then((data) => {
-                responseForm.success(res, data);
-            }).catch((err) => {
-                responseForm.error(res, err);
-            })
-    },
     sort: (req, res) => {
         menuModel.sort(req.query)
             .then((data) => {

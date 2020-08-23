@@ -41,8 +41,8 @@ const menuModel = {
     },
     deleteMenu: (id) => {
         return new Promise((resolve, reject) => {
-            const queryString = `DELETE FROM produk WHERE id=${id}`
-            db.query(queryString, (err, data) => {
+            const queryString = `DELETE FROM produk WHERE id=?`
+            db.query(queryString, [id], (err, data) => {
                 if (!err) {
                     resolve(data)
                 } else {
@@ -51,23 +51,12 @@ const menuModel = {
             })
         })
     },
-    getMenuByName: (nama_produk) => {
-        const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id WHERE produk.nama_produk LIKE "%${nama_produk}%"`
-        return new Promise((resolve, reject) => {
-            db.query(queryString, (err, data) => {
-                if (!err) {
-                    resolve(data);
-                } else {
-                    reject(err)
-                }
-            })
-        })
-    },
     sort: (query) => {
+        const searchByName = query.nama_produk
         const sortBy = query.by
         const sortOrder = query.order
         return new Promise((resolve, reject) => {
-            const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.${sortBy} ${sortOrder}`
+            const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id WHERE produk.nama_produk LIKE "%${searchByName}%" ORDER BY produk.${sortBy} ${sortOrder}`
             db.query(queryString, (err, data) => {
                 if (!err) {
                     resolve(data)
