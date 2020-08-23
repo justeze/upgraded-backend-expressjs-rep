@@ -26,11 +26,11 @@ const menuModel = {
             })
         })
     },
-    patchMenu: (body) => {
-        const { id } = body
+    patchMenu: (body, id) => {
+        // const { id } = body
         return new Promise((resolve, reject) => {
-            const queryString = `UPDATE produk SET ? WHERE produk.id=${id}`
-            db.query(queryString, [body], (err, data) => {
+            const queryString = "UPDATE produk SET ? WHERE id=?"
+            db.query(queryString, [body, id], (err, data) => {
                 if (!err) {
                     resolve(data)
                 } else {

@@ -8,9 +8,9 @@ const uploadBridge = require('../helpers/middlewares/imgUploadBridge')
 const menuRouter = express.Router()
 
 // endpoint for each method
-menuRouter.get('/menu', productMiddleware, menuController.getAllMenu)
-menuRouter.post('/addmenu', checkToken.checkTokenAdmin, uploadBridge.singleUpload, productMiddleware, menuController.postMenu)
-menuRouter.patch('/updatemenu', checkToken.checkTokenAdmin, productMiddleware, menuController.patchMenu)
+menuRouter.get('/', productMiddleware, menuController.getAllMenu)
+menuRouter.post('/', checkToken.checkTokenAdmin, uploadBridge.singleUpload, productMiddleware, menuController.postMenu)
+menuRouter.patch('/', checkToken.checkTokenAdmin, uploadBridge.singleUpload, productMiddleware, menuController.patchMenu)
 menuRouter.delete('/:id', checkToken.checkTokenAdmin, productMiddleware, menuController.deleteMenu)
 menuRouter.get('/search', checkToken.checkTokenKasir, productMiddleware, menuController.getMenuByName)
 menuRouter.get('/sort', checkToken.checkTokenKasir, productMiddleware, menuController.sort)

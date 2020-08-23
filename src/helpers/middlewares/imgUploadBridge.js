@@ -41,7 +41,7 @@ const uploadBridge = {
         // req.body.gambar_produk = `http://3.81.51.4:8000/images/${req.file.filename}`
         // next()
         try {
-          req.body.gambar_produk = `http://3.81.51.4:8000/images/${req.file.filename}`
+          req.body.gambar_produk = `http://localhost:2300/images/${req.file.filename}`
         } catch {
           console.log(err)
         } finally {

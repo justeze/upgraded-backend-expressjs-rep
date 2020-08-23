@@ -10,7 +10,7 @@ const productMiddleware = (req, res, next) => {
     const isBodyEmpty = _.isEmpty(req.body)
     
     
-    if (requestMethod === "GET" && (requestPath === "/menu" ||   requestPath === "/sort" || requestPath === "/search" || requestPath === "/pagination")) {
+    if (requestMethod === "GET" && (requestPath === "/" ||   requestPath === "/sort" || requestPath === "/search" || requestPath === "/pagination")) {
         if (requestPath === "/search" && isQueryEmpty) {
             const errorMsg = "request cannot be blank"
             responseForm.error(res, errorMsg)
@@ -18,15 +18,14 @@ const productMiddleware = (req, res, next) => {
             next()
         }
     } 
-    else if (requestMethod === "GET" && (requestPath === "/sort") ) {
-        if (isQueryEmpty) {
-            const errorMsg = "request cannot be blank";
-            responseForm.error(res, errorMsg);
-        } else {
-            next();
-        }
-    }
-
+    // else if (requestMethod === "GET" && (requestPath === "/sort") ) {
+    //     if (isQueryEmpty) {
+    //         const errorMsg = "request cannot be blank";
+    //         responseForm.error(res, errorMsg);
+    //     } else {
+    //         next();
+    //     }
+    // }
     else if (requestMethod === "DELETE" && requestPath === "/:id") {
         if (isParamsEmpty) {
             const errorMsg = "request body cannot be blank"
@@ -35,7 +34,7 @@ const productMiddleware = (req, res, next) => {
             next()
         }
     } 
-    else if (requestMethod === "POST" && (requestPath === "/addmenu")) {
+    else if (requestMethod === "POST" && (requestPath === "/")) {
         if (isBodyEmpty) { 
             const errorMsg = "request kiw cannot be blank!"
             responseForm.error(res, errorMsg)
@@ -43,14 +42,15 @@ const productMiddleware = (req, res, next) => {
             next()
         }
     } 
-    else if (requestMethod === "PATCH" && requestPath === "/updatemenu") {
+    else if (requestMethod === "PATCH" && requestPath === "/") {
         if (isBodyEmpty) {
             const errorMsg = "request cannot be blank!"
             responseForm.error(res, errorMsg)
         } else {
             next()
         }
-    } else {
+    } 
+    else {
         const errorMsg = "cannot recognize the request!"
         responseForm.error(res, errorMsg)
     }
