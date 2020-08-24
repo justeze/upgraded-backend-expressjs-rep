@@ -10,7 +10,7 @@ const productMiddleware = (req, res, next) => {
     const isBodyEmpty = _.isEmpty(req.body)
     
     
-    if (requestMethod === "GET" && (requestPath === "/" ||   requestPath === "/sort" || requestPath === "/pagination")) {
+    if (requestMethod === "GET" && (requestPath === "/" ||   requestPath === "/sort" || requestPath === "/pagination" || requestPath === "/paginatedSearchSort")) {
         if (requestPath === "/sort" && isQueryEmpty) {
             const errorMsg = "request cannot be blank"
             responseForm.error(res, errorMsg)

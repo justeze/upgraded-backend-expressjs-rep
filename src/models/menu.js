@@ -78,6 +78,19 @@ const menuModel = {
                 }
             })
         })
-    }
+    },
+    getPaginatedSearchSort: (searchByName, by, order, page, limit) => {
+        return new Promise((resolve, reject) => {
+            const offset = (page - 1) * limit
+            const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id WHERE produk.nama_produk LIKE '%${searchByName}%' ORDER BY produk.${by} ${order} LIMIT ${Number(limit)} OFFSET ${Number(offset)}`
+            db.query(queryString,[searchByName, by, order, limit, offset], (err, data) => {
+                if (!err) {
+                    resolve(data);
+                } else {
+                    reject(err);
+                }
+            })
+        })
+    },
 }
 module.exports = menuModel;

@@ -14,5 +14,6 @@ menuRouter.patch('/', checkToken.checkTokenAdmin, uploadBridge.singleUpload, pro
 menuRouter.delete('/:id', checkToken.checkTokenAdmin, productMiddleware, menuController.deleteMenu)
 menuRouter.get('/sort', checkToken.checkTokenKasir, productMiddleware, menuController.sort)
 menuRouter.get('/pagination', productMiddleware, menuController.getPaginatedMenu)
+menuRouter.get('/paginatedSearchSort', productMiddleware, menuController.getPaginatedSearchSort)
 
 module.exports = menuRouter

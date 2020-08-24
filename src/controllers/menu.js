@@ -56,13 +56,24 @@ const menuController = {
     getPaginatedMenu: (req, res) => {
         const { page, limit } = req.query
         menuModel
-          .getPaginatedMenu(page, limit)
-          .then((data) => {
-            responseForm.pagination(req, res, data);
-          })
-          .catch((err) => {
-            responseForm.error(res, err);
-          });
-      },
+            .getPaginatedMenu(page, limit)
+            .then((data) => {
+                responseForm.pagination(req, res, data);
+            })
+            .catch((err) => {
+                responseForm.error(res, err);
+            });
+    },
+    getPaginatedSearchSort: (req, res) => {
+        const { nama_produk, by, order, page, limit } = req.query
+        menuModel
+            .getPaginatedSearchSort(nama_produk, by, order, page, limit)
+            .then((data) => {
+                responseForm.paginationSearchSort(req, res, data);
+            })
+            .catch((err) => {
+                responseForm.error(res, err);
+            });
+    }
 }
 module.exports = menuController;
