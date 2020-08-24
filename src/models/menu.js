@@ -1,7 +1,7 @@
 const db = require("../configs/dbMySql")
 
 const menuModel = {
-    getAllMenu: () => {
+    getAllMenu: () => { // INI DIAPUS KARENA UDAH ADA YANG PAGINATED
         return new Promise((resolve, reject) => {
             const queryString = "SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id";
             db.query(queryString, (err, data) => {
@@ -51,7 +51,7 @@ const menuModel = {
             })
         })
     },
-    sort: (query) => {
+    sort: (query) => { // INI JUGA BAKAL DIAPUS PERKARA UDAH ADA YANG PAGINATED
         const searchByName = query.nama_produk
         const sortBy = query.by
         const sortOrder = query.order
@@ -66,7 +66,7 @@ const menuModel = {
             })
         })
     },
-    getPaginatedMenu: (page, limit) => {
+    getPaginatedMenu: (page, limit) => { // INI NANTI UNTUK ALL MENU TINGGAL APUS ENDPOINT JADI / AJA
         return new Promise((resolve, reject) => {
             const offset = (page - 1) * limit
             const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id ORDER BY produk.id ASC LIMIT ${Number(limit)} OFFSET ${Number(offset)}`
@@ -79,7 +79,7 @@ const menuModel = {
             })
         })
     },
-    getPaginatedSearchSort: (searchByName, by, order, page, limit) => {
+    getPaginatedSearchSort: (searchByName, by, order, page, limit) => { // GUA GABISA PAKE PARAMETER QUERY AJA
         return new Promise((resolve, reject) => {
             const offset = (page - 1) * limit
             const queryString = `SELECT produk.id, produk.nama_produk, produk.harga_produk, produk.gambar_produk, kategori.kategori FROM produk JOIN kategori ON produk.id_kategori=kategori.id WHERE produk.nama_produk LIKE '%${searchByName}%' ORDER BY produk.${by} ${order} LIMIT ${Number(limit)} OFFSET ${Number(offset)}`
